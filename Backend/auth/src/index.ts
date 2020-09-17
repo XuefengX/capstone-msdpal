@@ -1,25 +1,40 @@
-// import mongoose from 'mongoose'
-// import { app } from './app'
-// const start = async () => {
-//     if (!process.env.JWT_KEY) {
-//         throw new Error('JWT_Key not defined')
-//     }
-//     if (!process.env.MONGO_URI) {
-//         throw new Error('MONGO_URI not defined')
-//     }
-//     try {
-//         await mongoose.connect(process.env.MONGO_URI, {
-//             useNewUrlParser: true,
-//             useUnifiedTopology: true,
-//             useCreateIndex: true
-//         })
-//         console.log('Connected to MongoDb')
-//     } catch (err) {
-//         console.log(err)
-//     }
-//     app.listen(3000, () => {
-//         console.log("Listen on port 3000")
-//     })
-// }
+import express from 'express'
+import 'express-async-errors'
+import { json } from 'body-parser'
+import { NotFoundError, errorHandler } from '@xuefengxu/common'
+import mongoose from 'mongoose'
 
-// start()
+import { currentUserRouter } from './routes/current-user'
+import { signinRouter } from './routes/signin'
+import { signoutRouter } from './routes/signout'
+import { signupRouter } from './routes/signup'
+
+
+const app = express()
+app.use(json())
+
+app.use(currentUserRouter)
+app.use(signinRouter)
+app.use(signoutRouter)
+app.use(signupRouter)
+
+app.use(errorHandler)
+
+const start = async () => {
+    try {
+        await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true
+        })
+        console.log("Connected to MongoDB")
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+app.listen(3000, () => {
+    console.log('Auth service start running. Listen to port 3000')
+})
+
+start()

@@ -1,6 +1,10 @@
 # MSDPal
 MSDPal alumni community.
 
+* Api and services:
+
+![api](https://github.com/XuefengX/capstone-msdpal/blob/master/img/backend_design-Services.png?raw=true)
+
 ## Development plan: 
 ### Goal: 
 
@@ -38,7 +42,7 @@ With MSDPal, you can scan MSD news, find interested alumni, and send posts about
 This is a challenging and real-world project. We understand that we are facing the probabilities that it will not be fully completed. So we are going to develop this app one service at a time. Even some services are not completed at the end, the rest functions will work as expected. The developing plan contains all basic features we want to implement. The optional features will continue to develop once we finish basic ones and publish the web app.
 See next page for details.
 
-![working-plan](https://github.com/XuefengX/MSDPal/blob/master/img/working-plan.png?raw=true)
+![working-plan](https://github.com/XuefengX/capstone-msdpal/blob/master/img/working-plan.png?raw=true)
 
 ### Backend Design
 

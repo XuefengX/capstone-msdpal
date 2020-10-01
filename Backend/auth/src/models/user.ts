@@ -4,6 +4,15 @@ import { Password } from '../services/password'
 interface UserAttrs {
     email: string
     password: string
+    username: string
+    firstName: string
+    lastName: string
+    code: string
+    gradYear: Number
+    placement: string
+    intro: string
+    avatar: string
+    uid: string
 }
 
 interface UserModel extends mongoose.Model<UserDoc> {
@@ -13,6 +22,15 @@ interface UserModel extends mongoose.Model<UserDoc> {
 interface UserDoc extends mongoose.Document {
     email: string
     password: string
+    username: string
+    firstName: string
+    lastName: string
+    code: string
+    gradYear: Number
+    placement: string
+    intro: string
+    avatar: string
+    uid: string
 }
 
 const userSchema = new mongoose.Schema({
@@ -21,6 +39,33 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     password: {
+        type: String,
+        required: true
+    },
+    username: {
+        type: String,
+        required: true
+    },
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    code: {
+        type: String,
+        required: true
+    },
+    gradYear: {
+        type: Number,
+        required: true
+    },
+    placement: String,
+    intro: String,
+    avatar: String,
+    uid: {
         type: String,
         required: true
     }

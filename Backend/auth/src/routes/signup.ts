@@ -15,12 +15,27 @@ router.post('/api/users/signup', [
         .isLength({ min: 4, max: 20 })
         .withMessage('Password must be between 4 and 20 characters')
 ], validateRequest, async (req: Request, res: Response) => {
-    const { email, password, uid, code } = req.body
+    const {
+        email,
+        password,
+        uid,
+        code,
+        username,
+        firstName,
+        lastName,
+        gradYear,
+        placement,
+        intro,
+        avatar
+    } = req.body
     const existingUser = await User.findOne({ email })
-
     if (existingUser) {
-        console.log(`Email in use: ${email}`)
+        // console.log(`Email in use: ${email}`)
         throw new BadRequestError("Email in use")
+    }
+    const existingName = await User.findOne({ username })
+    if (existingName) {
+        throw new BadRequestError("Username in use")
     }
 
     const existingCode = await Invit.findOne({ uid })
@@ -33,13 +48,26 @@ router.post('/api/users/signup', [
         throw new BadRequestError('Invalid Invitation Code')
     }
 
-    const user = User.build({ email, password })
+    const user = User.build({
+        email,
+        password,
+        username,
+        firstName,
+        lastName,
+        code,
+        gradYear,
+        placement,
+        intro,
+        avatar,
+        uid
+    })
     await user.save()
 
     // generate JWT
     const userJwt = jwt.sign({
         id: user.id,
-        email: user.email
+        email: user.email,
+        username: user.username
     }, process.env.JWT_KEY!)
 
     // store it in the cookie session

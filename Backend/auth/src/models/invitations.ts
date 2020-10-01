@@ -34,14 +34,6 @@ const invitSchema = new mongoose.Schema({
     }
 })
 
-// invitSchema.pre('save', async function (done) {
-//     if (this.isModified('code')) {
-//         const hashed = await Password.toHash(this.get('code'))
-//         this.set('code', hashed)
-//     }
-//     done()
-// })
-
 invitSchema.statics.build = (attrs: InvitAttrs) => {
     return new Invit(attrs)
 }

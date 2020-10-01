@@ -11,6 +11,7 @@ import { signupRouter } from './routes/signup'
 import { adminRouter } from './routes/admin'
 import { generateCodeRouter } from './routes/admin-generator'
 import { getCodeRouter } from './routes/admin-get-code'
+import { getUserInfoRouter } from './routes/get-user'
 
 
 const app = express()
@@ -25,6 +26,7 @@ app.use(
 app.use(adminRouter)
 app.use(generateCodeRouter)
 app.use(getCodeRouter)
+app.use(getUserInfoRouter)
 app.use(currentUserRouter)
 app.use(signinRouter)
 app.use(signoutRouter)

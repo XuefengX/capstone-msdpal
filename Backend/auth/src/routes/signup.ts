@@ -1,7 +1,9 @@
 import express, { Request, Response } from 'express'
-import { body, validationResult } from 'express-validator'
-import { User, buildUser } from '../models/user'
-import { RequestValidationError, BadRequestError } from '@xuefengxu/common'
+import { body } from 'express-validator'
+import { User } from '../models/user'
+import { Invit } from '../models/invitations'
+import { BadRequestError, validateRequest } from '@xuefengxu/common'
+import jwt from 'jsonwebtoken'
 const router = express.Router()
 
 router.post('/api/users/signup', [
@@ -12,12 +14,8 @@ router.post('/api/users/signup', [
         .trim()
         .isLength({ min: 4, max: 20 })
         .withMessage('Password must be between 4 and 20 characters')
-], async (req: Request, res: Response) => {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-        throw new RequestValidationError(errors.array())
-    }
-    const { email, password } = req.body
+], validateRequest, async (req: Request, res: Response) => {
+    const { email, password, uid, code } = req.body
     const existingUser = await User.findOne({ email })
 
     if (existingUser) {
@@ -25,9 +23,31 @@ router.post('/api/users/signup', [
         throw new BadRequestError("Email in use")
     }
 
-    const user = buildUser({ email, password })
+    const existingCode = await Invit.findOne({ uid })
+    if (!existingCode) {
+        console.log(`No invitation code found: ${uid}`)
+        throw new BadRequestError("Not an alumni")
+    }
+    const invitMatch = existingCode.code === code
+    if (!invitMatch) {
+        throw new BadRequestError('Invalid Invitation Code')
+    }
+
+    const user = User.build({ email, password })
     await user.save()
-    console.log(`Create a user ${email}`)
+
+    // generate JWT
+    const userJwt = jwt.sign({
+        id: user.id,
+        email: user.email
+    }, process.env.JWT_KEY!)
+
+    // store it in the cookie session
+    req.session = {
+        jwt: userJwt
+    }
+
+    // console.log(`Create a user ${email}`)
     res.status(201).send(user)
 })
 

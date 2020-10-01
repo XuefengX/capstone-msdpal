@@ -10,7 +10,7 @@ export class NotAuthorizedError extends CustomError {
     }
 
     serializeErrors() {
-        console.log('Require Auth')
+        // console.log('Require Auth')
         return [{ message: 'Not authorized' }]
     }
 }

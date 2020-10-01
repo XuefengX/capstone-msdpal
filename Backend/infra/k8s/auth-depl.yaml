@@ -15,6 +15,17 @@ spec:
             containers:
                 - name: auth
                   image: us.gcr.io/horizontal-ally-289721/auth
+                  env: 
+                    - name: JWT_KEY
+                      valueFrom:
+                        secretKeyRef:
+                            name: jwt-secret
+                            key: JWT_KEY
+                    - name: ADMIN_KEY
+                      valueFrom:
+                        secretKeyRef:
+                            name: admin-secret
+                            key: password
 ---
 apiVersion: v1
 kind: Service

@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: auth-depl
+    name: posts-depl
 spec:
     replicas: 1
     selector:
         matchLabels:
-            app: auth
+            app: posts
     template:
         metadata:
             labels:
-                app: auth
+                app: posts
         spec:
             containers:
-                - name: auth
-                  image: us.gcr.io/horizontal-ally-289721/auth
+                - name: posts
+                  image: us.gcr.io/horizontal-ally-289721/posts
                   env: 
                     - name: MONGO_URI
-                      value: 'mongodb://auth-mongo-srv:27017/auth'
+                      value: 'mongodb://posts-mongo-srv:27017/posts'
                     - name: JWT_KEY
                       valueFrom:
                         secretKeyRef:
@@ -32,12 +32,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-    name: auth-srv
+    name: posts-srv
 spec:
     selector:
-        app: auth
+        app: posts
     ports:
-        - name: auth
+        - name: posts
           protocol: TCP
           port: 3000
           targetPort: 3000

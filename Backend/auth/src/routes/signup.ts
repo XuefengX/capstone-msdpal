@@ -13,7 +13,33 @@ router.post('/api/users/signup', [
     body('password')
         .trim()
         .isLength({ min: 4, max: 20 })
-        .withMessage('Password must be between 4 and 20 characters')
+        .withMessage('Password must be between 4 and 20 characters'),
+    body('uid')
+        .not()
+        .isEmpty()
+        .withMessage('Uid cannot be empty'),
+    body('code')
+        .not()
+        .isEmpty()
+        .withMessage('Code cannot be empty'),
+    body('username')
+        .not()
+        .isEmpty()
+        .withMessage('Username cannot be empty'),
+    body('firstName')
+        .not()
+        .isEmpty()
+        .withMessage('First name cannot be empty'),
+    body('lastName')
+        .not()
+        .isEmpty()
+        .withMessage('Last name cannot be empty'),
+    body('gradYear')
+        .not()
+        .isEmpty()
+        .withMessage('Graduation year cannot be empty')
+        .isNumeric()
+        .withMessage('Grad year must be number')
 ], validateRequest, async (req: Request, res: Response) => {
     const {
         email,

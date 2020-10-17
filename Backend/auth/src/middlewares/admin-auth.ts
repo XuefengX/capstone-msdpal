@@ -7,6 +7,7 @@ export const adminAuth = (
     next: NextFunction
 ) => {
     const { adminPassword } = req.body
+    console.log(`Password provided:  ${adminPassword}`)
     if (adminPassword != process.env.ADMIN_KEY) {
         throw new NotAuthorizedError()
     }

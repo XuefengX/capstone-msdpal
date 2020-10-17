@@ -1,16 +1,11 @@
 import express, { Request, Response } from 'express'
+import { requireAuth, validateRequest } from '@xuefengxu/common'
 import { body } from 'express-validator'
-import {
-    validateRequest,
-    NotFoundError,
-    requireAuth,
-    NotAuthorizedError
-} from '@xuefengxu/common'
 import { Post } from '../models/post'
 
 const router = express.Router()
 
-router.put('/api/posts/:id', requireAuth, [
+router.post('/api/posts', requireAuth, [
     body('title')
         .not()
         .isEmpty()
@@ -24,20 +19,14 @@ router.put('/api/posts/:id', requireAuth, [
         .isEmpty()
         .withMessage('Category is required')
 ], validateRequest, async (req: Request, res: Response) => {
-    const post = await Post.findById(req.params.id)
-    if (!post) {
-        throw new NotFoundError()
-    }
-    if (post.authorId !== req.currentUser!.id) {
-        throw new NotAuthorizedError()
-    }
     const {
         title,
         contents,
         category,
         img
     } = req.body
-    post.set({
+
+    const post = Post.build({
         title: title,
         contents: contents,
         category: category,
@@ -46,9 +35,10 @@ router.put('/api/posts/:id', requireAuth, [
         authorEmail: req.currentUser!.email,
         img: img
     })
+
     await post.save()
-    // console.log(`new posts: ${post}`)
-    res.status(200).send(post)
+
+    res.status(201).send(post)
 })
 
-export { router as updateRouter }
+export { router as createPostsRouter }

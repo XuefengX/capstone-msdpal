@@ -24,7 +24,7 @@ const start = async () => {
 }
 
 app.listen(3000, () => {
-    console.log('Posts service start running. Listen to port 3000')
+    console.log('Comments service start running. Listen to port 3000')
 })
 
 start()

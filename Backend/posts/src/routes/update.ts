@@ -7,6 +7,8 @@ import {
     NotAuthorizedError
 } from '@xuefengxu/common'
 import { Post } from '../models/post'
+import { PostUpdatedPublisher } from '../events/publishers/post-update-publisher'
+import { natsWrapper } from '../nats-wrapper'
 
 const router = express.Router()
 
@@ -47,6 +49,17 @@ router.put('/api/posts/:id', requireAuth, [
         img: img
     })
     await post.save()
+
+    new PostUpdatedPublisher(natsWrapper.client).publish({
+        id: post.id,
+        title: post.title,
+        category: post.category,
+        contents: post.contents,
+        author: post.author,
+        authorId: post.authorId,
+        authorEmail: post.authorEmail,
+        img: post.img
+    })
     // console.log(`new posts: ${post}`)
     res.status(200).send(post)
 })

@@ -22,3 +22,7 @@ spec:
                   backend:
                     serviceName: posts-srv
                     servicePort: 3000
+                - path: /api/query/?(.*)
+                  backend:
+                    serviceName: query-srv
+                    servicePort: 3000

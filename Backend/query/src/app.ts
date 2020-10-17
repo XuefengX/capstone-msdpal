@@ -4,9 +4,7 @@ import { json } from 'body-parser'
 import { errorHandler, currentUser } from '@xuefengxu/common'
 import cookieSession from 'cookie-session';
 
-import { createPostsRouter } from './routes/new'
-import { updateRouter } from './routes/update'
-import { deleteRouter } from './routes/delete'
+import { postQueryRouter } from './routes/post'
 
 const app = express()
 app.set('trust proxy', true);
@@ -19,9 +17,7 @@ app.use(
 );
 app.use(currentUser)
 
-app.use(createPostsRouter)
-app.use(updateRouter)
-app.use(deleteRouter)
+app.use(postQueryRouter)
 
 app.use(errorHandler)
 

@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express'
 import { requireAuth, validateRequest } from '@xuefengxu/common'
 import { body } from 'express-validator'
 import { Post } from '../models/post'
+import { PostCreatedPublisher } from '../events/publishers/post-create-publisher'
+import { natsWrapper } from '../nats-wrapper'
 
 const router = express.Router()
 
@@ -37,6 +39,16 @@ router.post('/api/posts', requireAuth, [
     })
 
     await post.save()
+    new PostCreatedPublisher(natsWrapper.client).publish({
+        id: post.id,
+        title: post.title,
+        category: post.category,
+        contents: post.contents,
+        author: post.author,
+        authorId: post.authorId,
+        authorEmail: post.authorEmail,
+        img: post.img
+    })
 
     res.status(201).send(post)
 })

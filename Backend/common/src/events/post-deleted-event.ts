@@ -3,6 +3,7 @@ import { Subjects } from './subjects'
 export interface PostDeletedEvent {
     subject: Subjects.PostDeleted
     data: {
-        id: string
+        id: string,
+        version: number
     }
 }

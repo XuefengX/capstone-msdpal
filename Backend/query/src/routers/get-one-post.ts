@@ -8,4 +8,4 @@ router.get('/api/query/posts/:id', requireAuth, async (req: Request, res: Respon
     res.status(201).send({ 'id': req.params.id })
 })
 
-export { router as postQueryRouter }
+export { router as getOnePostRouter }

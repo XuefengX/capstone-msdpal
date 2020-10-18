@@ -5,6 +5,8 @@ import {
     NotAuthorizedError,
     NotFoundError
 } from '@xuefengxu/common'
+import { PostDeletedPublisher } from '../events/publishers/post-delete-publisher'
+import { natsWrapper } from '../nats-wrapper'
 
 const router = express.Router()
 
@@ -20,6 +22,10 @@ router.delete('/api/posts/:id', requireAuth, async (req: Request, res: Response)
     // if (await Post.findById(req.params.id)) {
     //     console.log(`Unable to delete ${post}`)
     // }
+    new PostDeletedPublisher(natsWrapper.client).publish({
+        id: req.params.id,
+        version: post.__v!
+    })
     res.status(200).send({})
 })
 

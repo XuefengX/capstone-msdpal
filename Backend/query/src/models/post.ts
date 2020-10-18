@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
 
 interface PostAttrs {
     title: string,
@@ -59,9 +60,12 @@ const postSchema = new mongoose.Schema({
         transform(doc, ret) {
             ret.id = ret._id
             delete ret._id
+            delete ret.date
         }
     }
 })
+
+postSchema.plugin(updateIfCurrentPlugin)
 
 postSchema.statics.build = (attrs: PostAttrs) => {
     return new Post(attrs)

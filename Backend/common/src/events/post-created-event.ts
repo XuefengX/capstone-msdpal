@@ -10,6 +10,7 @@ export interface PostCreatedEvent {
     author: string,
     authorId: string,
     authorEmail: string,
-    img: string
+    img: string,
+    version: number
   };
 }

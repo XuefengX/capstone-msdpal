@@ -58,7 +58,8 @@ router.put('/api/posts/:id', requireAuth, [
         author: post.author,
         authorId: post.authorId,
         authorEmail: post.authorEmail,
-        img: post.img
+        img: post.img,
+        version: post.__v!
     })
     // console.log(`new posts: ${post}`)
     res.status(200).send(post)

@@ -47,7 +47,8 @@ router.post('/api/posts', requireAuth, [
         author: post.author,
         authorId: post.authorId,
         authorEmail: post.authorEmail,
-        img: post.img
+        img: post.img,
+        version: post.__v!
     })
 
     res.status(201).send(post)

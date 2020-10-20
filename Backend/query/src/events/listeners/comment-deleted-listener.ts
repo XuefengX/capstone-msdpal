@@ -10,10 +10,7 @@ export class CommentDeletedListener extends Listener<CommentDeletedEvent> {
     async onMessage(data: CommentDeletedEvent['data'], msg: Message) {
         const { id, version } = data
 
-        const comment = await Comment.findOne({
-            _id: id,
-            __v: version - 1
-        })
+        const comment = await Comment.findById(id)
 
         if (!comment) {
             throw new Error('Cannot find comment')

@@ -4,8 +4,8 @@ import { Post } from '../models/post'
 
 const router = express.Router()
 
-router.get('/api/query/posts/latest', requireAuth, async (req: Request, res: Response) => {
-    const posts = await Post.find().sort({ 'date': -1 }).limit(10)
+router.get('/api/query/posts/latest/:num', requireAuth, async (req: Request, res: Response) => {
+    const posts = await Post.find().sort({ 'date': -1 }).limit(Number(req.params.num))
     if (!posts) {
         throw new NotFoundError()
     }

@@ -57,4 +57,4 @@ router.put('/api/news/:id', adminAuth, [
     res.status(200).send(news)
 })
 
-export { router as updateRouter }
+export { router as updateNewsRouter }

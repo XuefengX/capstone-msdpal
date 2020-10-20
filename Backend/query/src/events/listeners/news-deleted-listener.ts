@@ -10,10 +10,7 @@ export class NewsDeletedListener extends Listener<NewsDeletedEvent> {
     async onMessage(data: NewsDeletedEvent['data'], msg: Message) {
         const { id, version } = data
 
-        const news = await News.findOne({
-            _id: id,
-            __v: version - 1
-        })
+        const news = await News.findById(id)
         if (!news) {
             throw new Error('Cannot find news')
         }

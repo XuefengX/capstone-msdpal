@@ -12,7 +12,8 @@ interface NewsDoc extends mongoose.Document {
     title: string,
     contents: string,
     category: string,
-    img: string
+    img: string,
+    date: Date
 }
 
 interface NewsModel extends mongoose.Model<NewsDoc> {

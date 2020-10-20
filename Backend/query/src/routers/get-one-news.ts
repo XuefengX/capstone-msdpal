@@ -4,7 +4,7 @@ import { News } from '../models/news'
 
 const router = express.Router()
 
-router.get('/api/query/news/id/:id', requireAuth, async (req: Request, res: Response) => {
+router.get('/api/query/news/id/:id', async (req: Request, res: Response) => {
     const news = await News.findById(req.params.id)
     if (!news) {
         throw new NotFoundError()

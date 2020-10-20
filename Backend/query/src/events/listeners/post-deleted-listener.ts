@@ -10,10 +10,7 @@ export class PostDeletedListener extends Listener<PostDeletedEvent> {
     async onMessage(data: PostDeletedEvent['data'], msg: Message) {
         const { id, version } = data
 
-        const post = await Post.findOne({
-            _id: id,
-            __v: version - 1
-        })
+        const post = await Post.findById(id)
         if (!post) {
             throw new Error('Cannot find post')
         }

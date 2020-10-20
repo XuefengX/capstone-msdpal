@@ -32,6 +32,7 @@ export class NewsUpdatedListener extends Listener<NewsUpdatedEvent> {
             category,
             img
         })
+        news.date = new Date()
         await news.save()
         console.log(`Query Service save: ${news}`)
 

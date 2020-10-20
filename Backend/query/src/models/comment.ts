@@ -16,7 +16,8 @@ interface CommentDoc extends mongoose.Document {
     author: string,
     authorId: string,
     authorEmail: string,
-    img: string
+    img: string,
+    date: Date
 }
 
 interface CommentModel extends mongoose.Model<CommentDoc> {

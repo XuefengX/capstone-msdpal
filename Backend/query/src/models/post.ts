@@ -18,7 +18,8 @@ interface PostDoc extends mongoose.Document {
     author: string,
     authorId: string,
     authorEmail: string,
-    img: string
+    img: string,
+    date: Date
 }
 
 interface PostModel extends mongoose.Model<PostDoc> {

@@ -7,10 +7,11 @@ import {
 } from '@xuefengxu/common'
 import { NewsDeletedPublisher } from '../events/publishers/news-deleted-publisher'
 import { natsWrapper } from '../nats-wrapper'
+import { adminAuth } from '../middlewares/admin-auth'
 
 const router = express.Router()
 
-router.delete('/api/news/:id', requireAuth, async (req: Request, res: Response) => {
+router.delete('/api/news/:id', adminAuth, async (req: Request, res: Response) => {
     const news = await News.findById(req.params.id)
     if (!news) {
         throw new NotFoundError()
@@ -27,4 +28,4 @@ router.delete('/api/news/:id', requireAuth, async (req: Request, res: Response) 
 })
 
 
-export { router as NewsDeletedRouter }
+export { router as deletedNewsRouter }

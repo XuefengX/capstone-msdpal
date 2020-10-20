@@ -4,8 +4,8 @@ import { News } from '../models/news'
 
 const router = express.Router()
 
-router.get('/api/query/news/latest', requireAuth, async (req: Request, res: Response) => {
-    const news = await News.find().sort({ 'date': -1 }).limit(4)
+router.get('/api/query/news/latest/:num', async (req: Request, res: Response) => {
+    const news = await News.find().sort({ 'date': -1 }).limit(Number(req.params.num))
     if (!news) {
         throw new NotFoundError()
     }

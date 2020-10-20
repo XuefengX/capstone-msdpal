@@ -1,11 +1,26 @@
 import express, { Request, Response } from 'express'
-import { requireAuth, validateRequest } from '@xuefengxu/common'
+import { NotFoundError, requireAuth, validateRequest } from '@xuefengxu/common'
+import { Post, PostAttrs } from '../models/post'
+import { Comment, CommentAttrs } from '../models/comment'
 
 const router = express.Router()
 
-router.get('/api/query/posts/:id', requireAuth, async (req: Request, res: Response) => {
+router.get('/api/query/posts/id/:id', requireAuth, async (req: Request, res: Response) => {
+    const post = await Post.findById(req.params.id)
+    if (!post) {
+        throw new NotFoundError()
+    }
 
-    res.status(201).send({ 'id': req.params.id })
+    const comments = await Comment.find({ postId: req.params.id }).sort({ 'date': -1 })
+    const commentsMap: CommentAttrs[] = []
+    comments.forEach(comment => {
+        commentsMap.push(comment)
+    })
+
+    res.status(200).send({
+        post: post,
+        comments: commentsMap
+    })
 })
 
 export { router as getOnePostRouter }

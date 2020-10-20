@@ -34,3 +34,19 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: us.gcr.io/horizontal-ally-289721/news
+      context: news
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: us.gcr.io/horizontal-ally-289721/comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .

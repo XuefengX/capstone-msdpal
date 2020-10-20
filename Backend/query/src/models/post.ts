@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
 
-interface PostAttrs {
+export interface PostAttrs {
     title: string,
     contents: string,
     category: string,
@@ -60,7 +60,6 @@ const postSchema = new mongoose.Schema({
         transform(doc, ret) {
             ret.id = ret._id
             delete ret._id
-            delete ret.date
         }
     }
 })

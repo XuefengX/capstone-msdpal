@@ -16,7 +16,8 @@ export class PostCreatedListener extends Listener<PostCreatedEvent> {
             img,
             author,
             authorId,
-            authorEmail
+            authorEmail,
+            version
         } = data
         const post = Post.build({
             title,
@@ -31,8 +32,8 @@ export class PostCreatedListener extends Listener<PostCreatedEvent> {
         await post.save()
         console.log(`Query Service save: ${post}`)
 
-        const postExist = await Post.findById(id)
-        console.log(`In query service database: ${postExist}`)
+        // const postExist = await Post.findById(id)
+        // console.log(`In query service database: ${postExist}`)
         msg.ack()
     }
 }

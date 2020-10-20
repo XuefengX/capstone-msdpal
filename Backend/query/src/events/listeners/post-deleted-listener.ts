@@ -8,15 +8,18 @@ export class PostDeletedListener extends Listener<PostDeletedEvent> {
     queueGroupName = queueGroupName
 
     async onMessage(data: PostDeletedEvent['data'], msg: Message) {
-        const { id } = data
+        const { id, version } = data
 
-        const post = await Post.findById(id)
+        const post = await Post.findOne({
+            _id: id,
+            __v: version - 1
+        })
         if (!post) {
-            throw new NotFoundError()
+            throw new Error('Cannot find post')
         }
 
         await Post.findByIdAndDelete(id)
-        console.log(`Query Service save: ${post}`)
+        console.log(`Query Service delete: ${post._id} in version ${post.__v}`)
 
         // const postExist = await Post.findById(id)
         // console.log(`In query service database: ${postExist}`)

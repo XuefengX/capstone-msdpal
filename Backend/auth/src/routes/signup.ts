@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express'
-import { body } from 'express-validator'
+import { body, cookie } from 'express-validator'
 import { User } from '../models/user'
 import { Invit } from '../models/invitations'
 import { BadRequestError, validateRequest } from '@xuefengxu/common'
@@ -100,7 +100,6 @@ router.post('/api/users/signup', [
     req.session = {
         jwt: userJwt
     }
-
     // console.log(`Create a user ${email}`)
     res.status(201).send(user)
 })

@@ -26,6 +26,14 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    # - image: us.gcr.io/horizontal-ally-289721/client
+    #   context: client
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: '**/*.js'
+    #         dest: .
     - image: us.gcr.io/horizontal-ally-289721/query
       context: query
       docker:

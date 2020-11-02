@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import { validateRequest } from '@xuefengxu/common'
-import { adminAuth } from '../middlewares/admin-auth'
+import { adminAuth } from '@xuefengxu/common'
 import { body } from 'express-validator'
 import { News } from '../models/news'
 import { NewsCreatedPublisher } from '../events/publishers/news-created-publisher'

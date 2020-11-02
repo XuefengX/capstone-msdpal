@@ -7,7 +7,7 @@ import {
 } from '@xuefengxu/common'
 import { NewsDeletedPublisher } from '../events/publishers/news-deleted-publisher'
 import { natsWrapper } from '../nats-wrapper'
-import { adminAuth } from '../middlewares/admin-auth'
+import { adminAuth } from '@xuefengxu/common'
 
 const router = express.Router()
 

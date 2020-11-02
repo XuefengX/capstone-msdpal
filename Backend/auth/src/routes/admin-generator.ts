@@ -1,6 +1,5 @@
-import { BadRequestError, validateRequest, } from '@xuefengxu/common'
+import { BadRequestError, validateRequest, adminAuth } from '@xuefengxu/common'
 import express, { Request, Response } from 'express'
-import { adminAuth } from '../middlewares/admin-auth'
 import { Invit } from '../models/invitations'
 import { randomBytes } from 'crypto'
 import { body } from 'express-validator'

@@ -27,6 +27,7 @@ export class CommentCreatedListener extends Listener<CommentCreatedEvent> {
             authorEmail
         })
         comment._id = id
+        comment.date = new Date()
         await comment.save()
         console.log(`Query Service save: ${comment}`)
 

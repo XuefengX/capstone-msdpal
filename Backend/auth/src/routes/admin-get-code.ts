@@ -1,7 +1,6 @@
 import express from 'express'
-import { adminAuth } from '../middlewares/admin-auth'
 import { Invit } from '../models/invitations'
-import { BadRequestError } from '@xuefengxu/common'
+import { BadRequestError, adminAuth } from '@xuefengxu/common'
 
 const router = express.Router()
 

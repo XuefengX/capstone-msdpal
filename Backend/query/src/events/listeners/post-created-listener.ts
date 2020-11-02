@@ -29,6 +29,7 @@ export class PostCreatedListener extends Listener<PostCreatedEvent> {
             authorEmail
         })
         post._id = id
+        post.date = new Date()
         await post.save()
         console.log(`Query Service save: ${post}`)
 

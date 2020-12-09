@@ -33,6 +33,7 @@ export class CommentCreatedListener extends Listener<CommentCreatedEvent> {
 
         // const postExist = await Post.findById(id)
         // console.log(`In query service database: ${postExist}`)
+        // manually ack
         msg.ack()
     }
 }

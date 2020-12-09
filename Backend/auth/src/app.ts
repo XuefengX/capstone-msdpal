@@ -19,6 +19,8 @@ import { updateRouter } from './routes/update'
 import { adminSignoutRouter } from './routes/admin-logout'
 
 const app = express()
+
+// must set cors to avoid cross domain warning
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true

@@ -3,6 +3,7 @@ import { app } from './app'
 import { natsWrapper } from './nats-wrapper'
 
 const start = async () => {
+    // check secret 
     if (!process.env.JWT_KEY) {
         throw new Error("JWT key must be defined")
     }

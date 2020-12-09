@@ -39,6 +39,8 @@ router.post('/api/posts', requireAuth, [
     })
 
     await post.save()
+
+    // doamin event
     new PostCreatedPublisher(natsWrapper.client).publish({
         id: post.id,
         title: post.title,

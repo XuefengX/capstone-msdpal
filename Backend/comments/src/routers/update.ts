@@ -39,6 +39,7 @@ router.put('/api/comments/:postId/:id', requireAuth, [
     })
     await comment.save()
 
+    // send with the version number
     new CommentUpdatedPublisher(natsWrapper.client).publish({
         id: comment.id,
         postId: comment.postId,
